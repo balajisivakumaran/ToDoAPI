@@ -1,10 +1,21 @@
+using ToDoAPI.Models;
+
 namespace ToDoAPI.Tests;
 
-public class UnitTest1
+public class ToDoModelTests
 {
     [Fact]
-    public void Test1()
+    public void CanChangeName()
     {
+        //Arrange
+        var toDoModelData = new ToDoItem{
+            Name = "Adding my first unit test",
+        };
 
+        //Act
+        toDoModelData.Name = "Actually, I want to call it as maiden unit test";
+
+        //Assert
+        Assert.Equal("Adding my first unit test", toDoModelData.Name);
     }
 }
