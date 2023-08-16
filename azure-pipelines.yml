@@ -35,3 +35,11 @@ steps:
   inputs:
     targetPath: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: '$(projectName)'
+
+- task: AzureRmWebAppDeployment@4
+  inputs:
+    ConnectionType: 'AzureRM'
+    azureSubscription: 'Pay-As-You-Go(a09bd86d-baab-4af7-aed3-eaf8114fc4d8)'
+    appType: 'apiApp'
+    WebAppName: 'ToDoManagerAPI'
+    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
