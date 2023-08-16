@@ -42,4 +42,4 @@ steps:
     azureSubscription: 'Pay-As-You-Go(a09bd86d-baab-4af7-aed3-eaf8114fc4d8)'
     appType: 'apiApp'
     WebAppName: 'ToDoManagerAPI'
-    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    packageForLinux: '$(Build.ArtifactStagingDirectory)/**/*.zip'
