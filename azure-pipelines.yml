@@ -6,6 +6,7 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
+  projectName: 'ToDoAPI'
 
 steps:
 - task: DotNetCoreCLI@2
@@ -33,3 +34,4 @@ steps:
   displayName: 'upload artefacts'
   inputs:
     targetPath: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: '$(projectName)'
