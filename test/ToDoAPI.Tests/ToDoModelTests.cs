@@ -16,6 +16,6 @@ public class ToDoModelTests
         toDoModelData.Name = "Actually, I want to call it as maiden unit test";
 
         //Assert
-        Assert.Equal("Adding my first unit test", toDoModelData.Name);
+        Assert.Equal("Actually, I want to call it as maiden unit test", toDoModelData.Name);
     }
 }
