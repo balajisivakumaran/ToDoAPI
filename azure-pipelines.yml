@@ -55,7 +55,7 @@ stages:
 
  - template: stages.yml
    parameters:
-     stageName: 'Deploy_the_App'
+     stageName: 'Deploy-App'
      jobName: 'Deploy'
      azureSubscription: ${{ variables.azureSubscription }}
      webAppName: ${{ variables.webAppName }}
