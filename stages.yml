@@ -18,8 +18,8 @@ stages:
        jobs:
            - template: deployjob.yml
              parameters:
-               stageName: 'Deploy_the_App'
+               stageName: ${{ parameters.stageName }}
                jobName: 'Deploy'
-               azureSubscription: ${{parameters.azureSubscription}}
-               webAppName: ${{parameters.webAppName}}
+               azureSubscription: ${{ parameters.azureSubscription }}
+               webAppName: ${{ parameters.webAppName }}
                artefactName: ${{ parameters.artefactName }}
