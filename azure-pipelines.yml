@@ -6,41 +6,57 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
-  projectName: 'ToDoAPI'
+  artefactName: 'ToDoAPI'
+  buildJobName: 'Build'
+  jobName: ''
+  webAppName: 'ToDoManagerAPI'
+  azureSubscription: 'Pay-As-You-Go(a09bd86d-baab-4af7-aed3-eaf8114fc4d8)'
 
-steps:
-- task: DotNetCoreCLI@2
-  displayName: 'dotnet build'
-  inputs:
-    command: 'build'
-    projects: '**/*.csproj'
-    arguments: '--configuration $(buildConfiguration)'
+stages:
+ - stage: "Build"
+   jobs:
+   - job:
+     steps:
+      - task: DotNetCoreCLI@2
+        displayName: 'dotnet build'
+        inputs:
+          command: 'build'
+          projects: '**/*.csproj'
+          arguments: '--configuration $(buildConfiguration)'
 
-- task: DotNetCoreCLI@2
-  displayName: 'dotnet test'
-  inputs:
-    command: 'test'
-    projects: '**/*Tests/*.csproj'
-    arguments: '--configuration $(buildConfiguration) --collect "Code coverage"'
+      - task: DotNetCoreCLI@2
+        displayName: 'dotnet test'
+        inputs:
+          command: 'test'
+          projects: '**/*Tests/*.csproj'
+          arguments: '--configuration $(buildConfiguration) --collect "Code coverage"'
 
-- task: DotNetCoreCLI@2
-  displayName: 'dotnet publish'
-  inputs:
-    command: publish
-    publishWebProjects: false
-    arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+      - task: DotNetCoreCLI@2
+        displayName: 'dotnet publish'
+        inputs:
+          command: publish
+          publishWebProjects: false
+          arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
 
-- task: PublishBuildArtifacts@1
-  displayName: 'upload artefacts'
-  inputs:
-    targetPath: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: '$(projectName)'
+      - task: PublishBuildArtifacts@1
+        displayName: 'upload artefacts'
+        inputs:
+          targetPath: '$(Build.ArtifactStagingDirectory)'
+          ArtifactName: '$(artefactName)'
 
-- task: AzureRmWebAppDeployment@4
-  displayName: 'azure API service deployment'
-  inputs:
-    ConnectionType: 'AzureRM'
-    azureSubscription: 'Pay-As-You-Go(a09bd86d-baab-4af7-aed3-eaf8114fc4d8)'
-    appType: 'apiApp'
-    WebAppName: 'ToDoManagerAPI'
-    packageForLinux: '$(Build.ArtifactStagingDirectory)/**/*.zip'
+      # - task: AzureRmWebAppDeployment@4
+      #   displayName: 'azure API service deployment'
+      #   inputs:
+      #     ConnectionType: 'AzureRM'
+      #     azureSubscription: 'Pay-As-You-Go(a09bd86d-baab-4af7-aed3-eaf8114fc4d8)'
+      #     appType: 'apiApp'
+      #     WebAppName: 'ToDoManagerAPI'
+      #     packageForLinux: '$(Build.ArtifactStagingDirectory)/**/*.zip'
+
+ - template: stages.yml
+   parameters:
+     stageName: 'Deploy_the_App'
+     jobName: 'Deploy'
+     azureSubscription: $(azureSubscription)
+     webAppName: $(webAppName)
+     artefactName: $(artefactName)        
