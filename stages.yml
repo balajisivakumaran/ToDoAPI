@@ -20,6 +20,6 @@ stages:
              parameters:
                stageName: 'Deploy_the_App'
                jobName: 'Deploy'
-               azureSubscription: $(azureSubscription)
-               webAppName: $(webAppName)
-               artefactName: $(artefactName)
+               azureSubscription: ${{parameters.azureSubscription}}
+               webAppName: ${{parameters.webAppName}}
+               artefactName: ${{ parameters.artefactName }}

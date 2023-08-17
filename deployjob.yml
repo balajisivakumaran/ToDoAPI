@@ -16,14 +16,14 @@ jobs:
      - task: DownloadPipelineArtifact@2
        displayName: "Download Pipelien Artifact"
        inputs:
-         artifactName: $(artefactName)
+         artifactName: ${{ parameters.artefactName }}
          targetPath: $(Build.ArtifactStagingDirectory)
 
-      - task: AzureRmWebAppDeployment@4
-        displayName: 'azure API service deployment'
-        inputs:
-          ConnectionType: 'AzureRM'
-          azureSubscription: $(azureSubscription)
-          appType: 'apiApp'
-          WebAppName: $(webAppName)
-          packageForLinux: '$(Build.ArtifactStagingDirectory)/**/*.zip'
+     - task: AzureRmWebAppDeployment@4
+       displayName: 'azure API service deployment'
+       inputs:
+         ConnectionType: 'AzureRM'
+         azureSubscription: ${{ parameters.azureSubscription }}
+         appType: 'apiApp'
+         WebAppName: ${{ parameters.webAppName }}
+         packageForLinux: '$(Build.ArtifactStagingDirectory)/**/*.zip'

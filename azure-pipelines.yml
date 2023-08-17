@@ -42,7 +42,7 @@ stages:
         displayName: 'upload artefacts'
         inputs:
           targetPath: '$(Build.ArtifactStagingDirectory)'
-          ArtifactName: '$(artefactName)'
+          ArtifactName: '${{ variables.artefactName }}'
 
       # - task: AzureRmWebAppDeployment@4
       #   displayName: 'azure API service deployment'
@@ -57,6 +57,6 @@ stages:
    parameters:
      stageName: 'Deploy_the_App'
      jobName: 'Deploy'
-     azureSubscription: $(azureSubscription)
-     webAppName: $(webAppName)
-     artefactName: $(artefactName)        
+     azureSubscription: ${{ variables.azureSubscription }}
+     webAppName: ${{ variables.webAppName }}
+     artefactName: ${{ variables.artefactName }}        
