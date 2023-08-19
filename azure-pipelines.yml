@@ -9,6 +9,7 @@ variables:
   artefactName: 'ToDoAPI'
   buildJobName: 'Build'
   jobName: ''
+  stageName: ''
   webAppName: 'ToDoManagerAPI'
   azureSubscription: 'Pay-As-You-Go(a09bd86d-baab-4af7-aed3-eaf8114fc4d8)'
 

@@ -11,7 +11,7 @@ parameters:
   default: ''
 
 stages:
-     - stage: $(stageName)
+     - stage: ${{ parameters.stageName }}
        dependsOn:
          - Build
        condition: succeeded('Build')
